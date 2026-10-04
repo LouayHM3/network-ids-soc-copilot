@@ -10,6 +10,10 @@ export const alerts = [
   { id: 'a-1040', source: 'suricata', signature: 'SSH Brute Force', src_ip: '172.16.2.44', dest_ip: '10.20.3.7', severity: 2, bytes: 2410, timestamp: '2026-10-04T08:58:41Z' }
 ];
 
+export function allAlerts() {
+  return alerts.map(normalize);
+}
+
 export function normalize(event) {
   const technique = ATTACK_MAP[event.signature] ?? { id: 'T1595', name: 'Active Scanning', tactic: 'Reconnaissance' };
   return { ...event, severity: Number(event.severity), mitre: technique, evidence: [`${event.source} signature: ${event.signature}`, `${event.bytes} bytes from ${event.src_ip} to ${event.dest_ip}`] };

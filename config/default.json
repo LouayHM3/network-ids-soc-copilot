@@ -1,0 +1,6 @@
+{
+  "port": 3001,
+  "dataFile": "data/events.ndjson",
+  "maxBodyBytes": 1048576,
+  "features": ["severity", "bytes", "source", "signature"]
+}
