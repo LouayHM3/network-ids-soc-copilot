@@ -1,0 +1,1 @@
+{"service":"network-ids-soc-copilot","port":3001,"opensearch":{"index":"security-alerts-v1","timeoutMs":3000,"maxRetries":3},"llm":{"timeoutMs":10000,"maxRetries":2},"security":{"requireApiKey":true,"maxQueryLength":200}}

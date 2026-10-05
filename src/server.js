@@ -1,10 +1,22 @@
 import { createServer } from 'node:http';
 import { copilotExplain, search } from './index.js';
 import { loadEvents } from './pipeline.js';
+import { authorize, loadConfig } from './config.js';
+import { log, requestId } from './logger.js';
 
 const dataFile = new URL('../data/events.ndjson', import.meta.url);
+const config = loadConfig();
 
 const server = createServer((request, response) => {
+  const correlationId = requestId(request);
+  response.setHeader('x-request-id', correlationId);
+  if (!authorize(request, config)) {
+    response.statusCode = 401;
+    response.setHeader('content-type', 'application/json');
+    response.end(JSON.stringify({ error: 'unauthorized', requestId: correlationId }));
+    return;
+  }
+  log('info', 'request received', { method: request.method, path: request.url, requestId: correlationId });
   const url = new URL(request.url, 'http://localhost');
   if (url.pathname === '/health') {
     response.setHeader('content-type', 'application/json');

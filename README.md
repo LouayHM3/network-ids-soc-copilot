@@ -19,3 +19,7 @@ The demo is deterministic and dependency-free. In production, replace the NDJSON
 `event -> normalize -> search -> ATT&CK map -> evidence-grounded explanation`
 
 The `config`, `data`, `src`, `test`, `docs`, and Docker files make the data contract easy to inspect and extend with a classifier or queue.
+
+## Production boundary
+
+`integrations/`, `.env.example`, `docs/openapi.yaml`, `scripts/bootstrap-opensearch.mjs`, `.github/workflows/ci.yml`, and `docs/production-deployment.md` define the authenticated, observable provider boundary. Secrets and live service URLs are intentionally supplied at deployment time.
